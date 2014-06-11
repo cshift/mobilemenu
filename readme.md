@@ -31,11 +31,21 @@ jQuery mobilemenu have some options:
 
 * `subMenuDash`: Separator for submenu
 
+* `ignoreHash`: Removes link elements with href="#" from mobile menu
+
+* `ignoreEmpty`: Removes link elements with missing href attribute
+
+* `aIgnoreSelector`: CSS selector for link elements that you want to remove
+
+
 ```javascript
 $('.menu').mobileMenu({
 	defaultText: 'Navigate to...',
 	className: 'select-menu',
 	subMenuDash: '&ndash;'
+	ignoreHash: true,
+	ignoreEmpty: true,
+	aIgnoreSelector: '.hideMe, #hiddeThisID, .mmIgnore'
 });
 ```
 
