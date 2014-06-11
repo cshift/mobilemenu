@@ -1,7 +1,7 @@
 /**
  * jQuery Mobile Menu 
  * Turn unordered list menu into dropdown select menu
- * version 1.1(27-JULY-2013)
+ * version 2.0  (06-10-2014)
  * 
  * CShift Fork
  * 
