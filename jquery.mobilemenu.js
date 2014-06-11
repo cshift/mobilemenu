@@ -64,7 +64,7 @@ $.fn.mobileMenu = function(options) {
 			// el is main menu element
 			if( $this.parentsUntil(el, 'ul').hasClass( settings.subMenuClass ) ) {
 				
-				var parentIgnore = ( settings.ignoreSelector.length && $this.closest('li', el).is(settings.ignoreSelector)
+				var parentIgnore = ( settings.ignoreSelector.length && $this.closest('li', el).is(settings.ignoreSelector) )
 				
 				if(parentIgnore){
 					var ignoreLength = $this.parentUntil(el,'li').filter(settings.ignoreSelector).length;
