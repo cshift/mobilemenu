@@ -3,11 +3,19 @@
  * Turn unordered list menu into dropdown select menu
  * version 1.1(27-JULY-2013)
  * 
+ * CShift Fork
+ * 
  * Built on top of the jQuery library
  *   http://jquery.com
  * 
  * Documentation
  * 	 http://github.com/mambows/mobilemenu
+ *       CSHIFT Updates
+ * 		- support added for hiding list elements with href="#"" in options just set ignoreHash: true|false
+ * 		- support added to skip list elements with class set in ignoreSelector: [], default class to ignore '.mobile-ignore'
+ * 
+ * 
+ * 
  */
 (function($){
 $.fn.mobileMenu = function(options) {
@@ -16,14 +24,17 @@ $.fn.mobileMenu = function(options) {
 			defaultText: 'Navigate to...',
 			className: 'select-menu',
 			subMenuClass: 'sub-menu',
-			subMenuDash: '&ndash;'
+			subMenuDash: '&ndash;',
+			ignoreHash: true,
+			ignoreSelector: '.mobile-ignore'
 		},
 		settings = $.extend( defaults, options ),
 		el = $(this);
 	
 	this.each(function(){
+		
 		var $el = $(this),
-			$select_menu;
+			  $select_menu;
 
 		// ad class to submenu list
 		$el.find('ul').addClass(settings.subMenuClass);
@@ -44,12 +55,23 @@ $.fn.mobileMenu = function(options) {
 			var $this 	= $(this),
 				optText	= '&nbsp;' + $this.text(),
 				optSub	= $this.parents( '.' + settings.subMenuClass ),
-				len		= optSub.length,
+				len	= optSub.length,
+				ignore  = ( settings.ignoreHash && this.href=="#") || (settings.ignoreSelector.length && $this.parents('li').is(settings.ignoreSelector) ) 
 				dash;
 			
-			// if menu has sub menu
-			if( $this.parents('ul').hasClass( settings.subMenuClass ) ) {
-				dash = Array( len+1 ).join( settings.subMenuDash );
+			// if menu has sub menu 
+			// el is main menu element
+			if( $this.parentsUntil(el, 'ul').hasClass( settings.subMenuClass ) ) {
+				
+				var parentIgnore = ( settings.ignoreSelector.length && $this.closest('li', el).is(settings.ignoreSelector)
+				
+				if(parentIgnore){
+					var ignoreLength = $this.parentUntil(el,'li').filter(settings.ignoreSelector).length;
+					dash= ignoreLength ? Array( len-ignoreLength ).join( settings.subMenuDash ) : "";
+				}
+				else{
+					dash = Array( len+1 ).join( settings.subMenuDash );
+				}
 				optText = dash + optText;
 			}
 
