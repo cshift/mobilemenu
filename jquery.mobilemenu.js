@@ -60,28 +60,31 @@ $.fn.mobileMenu = function(options) {
 				ignore  = ( settings.ignoreHash && this.href=="#") || (settings.ignoreSelector.length && $this.parents('li').is(settings.ignoreSelector) ) 
 				dash;
 			
-			// if menu has sub menu 
-			// el is main menu element
-			if( $this.parentsUntil(el, 'ul').hasClass( settings.subMenuClass ) ) {
-				
-				var parentIgnore = ( settings.ignoreSelector.length && $this.closest('li', el).is(settings.ignoreSelector) )
-				
-				if(parentIgnore){
-					var ignoreLength = $this.parentUntil(el,'li').filter(settings.ignoreSelector).length;
-					dash= ignoreLength ? Array( len-ignoreLength ).join( settings.subMenuDash ) : "";
+			
+			if(!ignore){
+				// if menu has sub menu 
+				// el is main menu element
+				if( $this.parentsUntil(el, 'ul').hasClass( settings.subMenuClass ) ) {
+					
+					var parentIgnore = ( settings.ignoreSelector.length && $this.closest('li', el).is(settings.ignoreSelector) )
+					
+					if(parentIgnore){
+						var ignoreLength = $this.parentUntil(el,'li').filter(settings.ignoreSelector).length;
+						dash= ignoreLength ? Array( len-ignoreLength ).join( settings.subMenuDash ) : "";
+					}
+					else{
+						dash = Array( len+1 ).join( settings.subMenuDash );
+					}
+					optText = dash + optText;
 				}
-				else{
-					dash = Array( len+1 ).join( settings.subMenuDash );
-				}
-				optText = dash + optText;
+	
+				// Now build menu and append it
+				$('<option />', {
+					"value"	: this.href,
+					"html"	: optText,
+					"selected" : (this.href == window.location.href)
+				}).appendTo( $select_menu );
 			}
-
-			// Now build menu and append it
-			$('<option />', {
-				"value"	: this.href,
-				"html"	: optText,
-				"selected" : (this.href == window.location.href)
-			}).appendTo( $select_menu );
 
 		}); // End el.find('a').each
 
