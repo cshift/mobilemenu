@@ -12,7 +12,8 @@
  * 	 http://github.com/mambows/mobilemenu
  *       CSHIFT Updates
  * 		- support added for hiding list elements with href="#"" in options just set ignoreHash: true|false
- * 		- support added to skip list elements with class set in ignoreSelector: [], default class to ignore '.mobile-ignore'
+ * 		- support added to skip list elements with class set in ignoreSelector,
+ * 	          default class to ignore '.mobile-ignore'
  * 
  * 
  * 
